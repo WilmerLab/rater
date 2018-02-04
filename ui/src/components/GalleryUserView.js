@@ -1,7 +1,7 @@
 import React from 'react'
-import ImagesToRate from './ImagesToRate'
+// import ImagesToRate from './ImagesToRate'
 import UploadImage from './UploadImage'
-import averageCriticalAssessmentScore from '../utils/averageCriticalAssessmentScore'
+//import averageCriticalAssessmentScore from '../utils/averageCriticalAssessmentScore'
 
 let youtube, textarea
 
