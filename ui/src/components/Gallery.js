@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import ColorPicker from 'react-color'
+import { TwitterPicker as ColorPicker } from 'react-color'
 import moment from 'moment'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
@@ -261,7 +261,7 @@ export default class Gallery extends Component {
       color,
       _id: this.state.gallery._id,
     })
-    // this.setState({ colorPickerOpen: false })
+    this.setState({ colorPickerOpen: false })
   }
 
   togglePublic = () => {
