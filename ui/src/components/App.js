@@ -2,13 +2,14 @@ import React, { Component } from 'react'
 import { Route, Link, Redirect } from 'react-router-dom'
 import io from 'socket.io-client'
 import auth from '../auth'
+import { API } from '../config'
 import Home from './Home'
 import Login from './Login'
 import Gallery from './Gallery'
 import Userlist from './Userlist'
 import NewGalleryForm from './NewGalleryForm'
 
-let socket = io(`${process.env.REACT_APP_SOCKET_EP}`)
+let socket = io(API)
 
 let AuthRoute = ({ component, ...props }) => {
   return (
@@ -32,7 +33,8 @@ export default class App extends Component {
     nextPathname: null,
     user: {
       username: localStorage.username,
-      admin: localStorage.admin,
+      admin:
+        localStorage.admin === 'undefined' ? undefined : localStorage.admin,
     },
   }
 
@@ -77,7 +79,7 @@ export default class App extends Component {
       token: localStorage.token,
     }
 
-    let response = await fetch(`${process.env.REACT_APP_API}/api/newgallery`, {
+    let response = await fetch(`${API}/api/newgallery`, {
       method: `POST`,
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),

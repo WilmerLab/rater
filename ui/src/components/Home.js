@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { API } from '../config'
 
 export default class Home extends Component {
   state = { galleries: [] }
@@ -9,7 +10,7 @@ export default class Home extends Component {
   }
 
   getGalleries = async () => {
-    let response = await fetch(`${process.env.REACT_APP_API}/api/galleries`, {
+    let response = await fetch(`${API}/api/galleries`, {
       method: `POST`,
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

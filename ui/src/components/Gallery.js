@@ -3,6 +3,7 @@ import ColorPicker from 'react-color'
 import moment from 'moment'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
+import { API } from '../config'
 import GalleryLogin from './GalleryLogin'
 import GalleryUserView from './GalleryUserView'
 import ResultsTable from './ResultsTable'
@@ -45,7 +46,7 @@ export default class Gallery extends Component {
   getGallery = async ({ password }) => {
     let { params, setHeaderColor } = this.props
 
-    let response = await fetch(`${process.env.REACT_APP_API}/api/gallery`, {
+    let response = await fetch(`${API}/api/gallery`, {
       method: `POST`,
       headers: { 'Content-Type': `application/json` },
       body: JSON.stringify({
@@ -154,22 +155,19 @@ export default class Gallery extends Component {
   saveToDb = async ({ link, width, height, caption }) => {
     let { params } = this.props
 
-    let response = await fetch(
-      `${process.env.REACT_APP_API}/api/gallery/image`,
-      {
-        method: `POST`,
-        headers: { 'Content-Type': `application/json` },
-        body: JSON.stringify({
-          token: localStorage.token,
-          galleryId: params.galleryId,
-          username: localStorage.username,
-          link,
-          caption,
-          width,
-          height,
-        }),
-      },
-    )
+    let response = await fetch(`${API}/api/gallery/image`, {
+      method: `POST`,
+      headers: { 'Content-Type': `application/json` },
+      body: JSON.stringify({
+        token: localStorage.token,
+        galleryId: params.galleryId,
+        username: localStorage.username,
+        link,
+        caption,
+        width,
+        height,
+      }),
+    })
 
     let { image } = await response.json()
     this.setState({ userImage: image, youtubeLink: `` })
@@ -178,18 +176,15 @@ export default class Gallery extends Component {
   activateDeadline = async () => {
     let { params } = this.props
 
-    let response = await fetch(
-      `${process.env.REACT_APP_API}/api/gallery/activate`,
-      {
-        method: `POST`,
-        headers: { 'Content-Type': `application/json` },
-        body: JSON.stringify({
-          token: localStorage.token,
-          galleryId: params.galleryId,
-          username: localStorage.username,
-        }),
-      },
-    )
+    let response = await fetch(`${API}/api/gallery/activate`, {
+      method: `POST`,
+      headers: { 'Content-Type': `application/json` },
+      body: JSON.stringify({
+        token: localStorage.token,
+        galleryId: params.galleryId,
+        username: localStorage.username,
+      }),
+    })
 
     let json = await response.json()
     this.setState({ gallery: json.gallery })
@@ -221,14 +216,11 @@ export default class Gallery extends Component {
       ratingSpec.feedback = feedback
     }
 
-    let response = await fetch(
-      `${process.env.REACT_APP_API}/api/gallery/vote`,
-      {
-        method: `POST`,
-        headers: { 'Content-Type': `application/json` },
-        body: JSON.stringify(ratingSpec),
-      },
-    )
+    let response = await fetch(`${API}/api/gallery/vote`, {
+      method: `POST`,
+      headers: { 'Content-Type': `application/json` },
+      body: JSON.stringify(ratingSpec),
+    })
 
     let { gallery, success, message } = await response.json()
 
@@ -281,7 +273,7 @@ export default class Gallery extends Component {
   deleteGallery = async () => {
     let { params, history } = this.props
 
-    await fetch(`${process.env.REACT_APP_API}/api/gallery/delete`, {
+    await fetch(`${API}/api/gallery/delete`, {
       method: `POST`,
       headers: { 'Content-Type': `application/json` },
       body: JSON.stringify({

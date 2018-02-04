@@ -3,7 +3,7 @@
 ## Requirements
 
  - Node
- - Local Mongo DB running
+ - Mongo DB
 
 ## Setup
 
@@ -23,19 +23,19 @@ Install and run the UI in production:
 ### deploy with pm2
 
 ```
-pm2 start npm --name "Your APP Name" -- start
+pm2 start npm --name "api" -- start
 ```
 
 ### env vars
 
 ```
 # api
-PORT
-ORIGIN
-INDEX
+PORT <-- api port (defaults to :8080)
+ORIGIN <-- allowed cors requestors
+INDEX <-- mongodb namespace
 
 # ui
-REACT_APP_API
-REACT_APP_ROUTER
+REACT_APP_API <-- url of api
+REACT_APP_ROUTER <-- history strategy (defaults to hash to facilitate github pages)
 
 ```
