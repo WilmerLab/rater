@@ -8,7 +8,7 @@ import Gallery from './Gallery'
 import Userlist from './Userlist'
 import NewGalleryForm from './NewGalleryForm'
 
-let socket = io(`${process.env.REACT_APP_API}`)
+let socket = io(`${process.env.REACT_APP_SOCKET_EP}`)
 
 let AuthRoute = ({ component, ...props }) => {
   return (

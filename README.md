@@ -18,3 +18,24 @@ Install and run the UI in development (port 3000):
 Install and run the UI in production:
 
     cd /rater/ui && npm install && npm run deploy
+
+
+### deploy with pm2
+
+```
+pm2 start npm --name "Your APP Name" -- start
+```
+
+### env vars
+
+```
+# api
+PORT
+ORIGIN
+INDEX
+
+# ui
+REACT_APP_API
+REACT_APP_ROUTER
+
+```
