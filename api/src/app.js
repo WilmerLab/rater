@@ -22,7 +22,13 @@ let port = process.env.PORT || 8080
 mongoose.connect(config.database)
 app.set(`superSecret`, config.secret)
 
-app.use(cors())
+let origin = process.env.ORIGIN && { origin: process.env.ORIGIN }
+
+if (origin) {
+  app.use(cors(origin))
+} else {
+  app.use(cors())
+}
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(morgan(`dev`))
