@@ -7,6 +7,12 @@ export default class Home extends Component {
 
   componentDidMount() {
     this.getGalleries()
+
+    this.props.socket.on(`api:updateGallery`, gallery => {
+      if (!this.state.galleries.some(x => x._id === gallery._id)) {
+        this.setState(s => ({ galleries: s.galleries.concat(gallery) }))
+      }
+    })
   }
 
   getGalleries = async () => {
