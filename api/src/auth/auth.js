@@ -22,7 +22,7 @@ export default ({ apiRoutes, app }) => {
           res.json({ success: false, message: 'Wrong password.' });
         } else {
           let token = jwt.sign(user, app.get('superSecret'), {
-            expiresInMinutes: 1440, // expires in 24 hours
+            expiresIn: 1440 * 60, // expires in 24 hours
           });
 
           res.json({

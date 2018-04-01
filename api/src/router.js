@@ -1,9 +1,8 @@
-import express from 'express'
-import schedule from 'node-schedule'
-import Gallery from './models/gallery'
-import User from './models/user'
-import activateDeadline from './lib/activateDeadline'
-import calculateCriticalAssessmentScores from './lib/calculateCriticalAssessmentScores'
+import express from 'express';
+import Gallery from './models/gallery';
+import User from './models/user';
+import activateDeadline from './lib/activateDeadline';
+import calculateCriticalAssessmentScores from './lib/calculateCriticalAssessmentScores';
 
 import { auth } from './auth'
 
@@ -36,23 +35,6 @@ export default ({ app, io }) => {
             passedDeadline: false,
             createdDate: +new Date(),
             images: [],
-          })
-
-          /*
-           *  Schedule activation function.
-           */
-
-          schedule.scheduleJob(new Date(submitDeadline), () => {
-            gallery = activateDeadline(gallery)
-            gallery.markModified(`images`)
-
-            gallery.save((err, gallery) => {
-              if (err) throw err
-              console.log(
-                `${gallery} deadline activated: ${gallery.submitDeadline}`,
-              )
-              io.emit(`api:updateGallery`, gallery)
-            })
           })
 
           gallery.save((err, g) => {
