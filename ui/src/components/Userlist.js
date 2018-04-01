@@ -1,21 +1,22 @@
-import React from 'react';
+import React from 'react'
+import { API } from '../config'
 
 export default class extends React.Component {
-  state = { users: [] };
+  state = { users: [] }
   async componentDidMount() {
-    let { users } = await fetch(`${process.env.REACT_APP_API}/api/userlist`, {
+    let { users } = await fetch(`${API}/api/userlist`, {
       method: `POST`,
       headers: { 'Content-Type': `application/json` },
       body: JSON.stringify({
         token: localStorage.token,
       }),
-    }).then(r => r.json());
+    }).then(r => r.json())
 
-    this.setState({ users: [...new Set(users)] });
+    this.setState({ users: [...new Set(users)] })
 
     this.props.socket.on('api:newsignup', username =>
       this.setState({ users: [...new Set([...users, username])] }),
-    );
+    )
   }
   render() {
     return (
@@ -25,9 +26,9 @@ export default class extends React.Component {
           .slice()
           .sort()
           .map(username => {
-            return <div key={username}>{username}</div>;
+            return <div key={username}>{username}</div>
           })}
       </div>
-    );
+    )
   }
 }

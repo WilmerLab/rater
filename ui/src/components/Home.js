@@ -1,15 +1,22 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
+import { API } from '../config'
 
 export default class Home extends Component {
-  state = { galleries: [] };
+  state = { galleries: [] }
 
   componentDidMount() {
-    this.getGalleries();
+    this.getGalleries()
+
+    this.props.socket.on(`api:updateGallery`, gallery => {
+      if (!this.state.galleries.some(x => x._id === gallery._id)) {
+        this.setState(s => ({ galleries: s.galleries.concat(gallery) }))
+      }
+    })
   }
 
   getGalleries = async () => {
-    let response = await fetch(`${process.env.REACT_APP_API}/api/galleries`, {
+    let response = await fetch(`${API}/api/galleries`, {
       method: `POST`,
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -17,14 +24,14 @@ export default class Home extends Component {
         userId: localStorage.userId,
         username: localStorage.username,
       }),
-    });
+    })
 
-    let json = await response.json();
+    let json = await response.json()
 
     this.setState({
       galleries: json || [],
-    });
-  };
+    })
+  }
 
   render() {
     return (
@@ -75,6 +82,6 @@ export default class Home extends Component {
             ))}
         </div>
       </div>
-    );
+    )
   }
 }

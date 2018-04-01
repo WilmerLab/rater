@@ -24,7 +24,7 @@ export default function ResultsTable({ images, getOwnerRating, viewImage }) {
       <tbody>
         {images.map((image, i) => (
           <tr key={i}>
-            <td>{image.userEmail}</td>
+            <td>{image.username}</td>
             <td>
               <a
                 onClick={() => viewImage({ image })}

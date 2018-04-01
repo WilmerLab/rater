@@ -1,4 +1,4 @@
 export default {
-  secret: `ilovescotchyscotch`,
+  secret: process.env.SECRET || `ilovescotchyscotch`,
   database: `mongodb://localhost/${process.env.INDEX}`,
-};
+}
